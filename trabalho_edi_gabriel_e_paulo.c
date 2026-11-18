@@ -1,31 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX 30
 
 struct tuser {
-    char email[30], name[30];
+    char email[MAX], name[MAX];
     int borrow;
-    struct tuser *ul, *ur;
+    struct tuser *nextu;
 }; typedef struct tuser User;
 
 struct tbook {
-    char title[30], autor[30], email[30];
+    char title[MAX], autor[MAX], email[MAX];
     int year, id, status, borrow;
     struct tbook *bl, *br;
 }; typedef struct tbook Book;
 
-struct tutree {
-    User *root;
-}; typedef struct tutree Utree;
+struct lsulist {
+    User *head, *tail;
+}; typedef struct lsulist Ulist;
 
 struct tbtree {
     Book *root;
 }; typedef struct tbtree Btree;
 
+void addUser(Ulist *ul) {
+    User *u = malloc(sizeof(User));
+    printf("Insira seu email:\n");
+    fgets(u->email, MAX, stdin);
+    if (ul->head==NULL){
+        printf("Digite seu nome:\n");
+        fgets(u->name, MAX, stdin);
+        ul->head=u;
+        ul->tail=u;
+    }
+}
 
+void addBook() {
+    
+}
+
+void add() {
+
+}
 
 int main()
 {
-    printf("Hello World");
+    Ulist *userl = malloc(sizeof(Ulist));
+    addUser(userl);
 
     return 0;
 }
