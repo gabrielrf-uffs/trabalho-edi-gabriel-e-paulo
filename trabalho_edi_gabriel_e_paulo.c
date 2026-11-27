@@ -76,6 +76,12 @@ void addBook(Blist *bl) {
         b->id=1;
     } else {
         Book *aux = bl->head;
+        if (aux->id==2) {
+            b->nextb=aux;
+            bl->head=b;
+            b->id=1;
+            return;
+        }
         for(aux;aux!=NULL;aux=aux->nextb) {
             if (aux->nextb==NULL) break;
             else {
@@ -308,13 +314,18 @@ void deleteUser(Ulist *ul) {
     switch(op){
         case 0: printf("Voltando!\n");
                 return;
-        case 1: if (prev==NULL) {
+        case 1: if (aux->nextu==NULL && prev==NULL) {
                     ul->head=NULL;
                     ul->tail=NULL;
                 }
                 else {
-                    prev->nextu=aux->nextu;
-                    ul->tail=prev;
+                    if (aux==ul->head) {
+                        ul->head=aux->nextu;
+                    }
+                    else {
+                        prev->nextu=aux->nextu;
+                        ul->tail=prev;
+                    }
                 }
                 return;
     }
@@ -327,6 +338,7 @@ void deleteBook(Blist *bl) {
     prev=NULL;
     printf("Digite o id:\n");
     scanf("%d",&id);
+    prev=aux;
     for(aux;aux!=NULL;aux=aux->nextb) {
         if (aux->id==id) break;
         prev=aux;
@@ -344,13 +356,18 @@ void deleteBook(Blist *bl) {
     switch(op){
         case 0: printf("Voltando!\n");
                 return;
-        case 1: if (prev==NULL) {
+        case 1: if (aux->nextb==NULL && prev==NULL) {
                     bl->head=NULL;
                     bl->tail=NULL;
                 }
                 else {
-                    prev->nextb=aux->nextb;
-                    bl->tail=prev;
+                    if (aux==bl->head){
+                        bl->head=aux->nextb;
+                    }
+                    else {
+                        prev->nextb=aux->nextb;
+                        bl->tail=prev;
+                    }
                 }
                 return;
     }
